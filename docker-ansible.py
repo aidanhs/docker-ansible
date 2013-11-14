@@ -265,11 +265,11 @@ class DockerManager:
     
     
     def get_split_image_tag(self, image):
-        tag = None
-        if image.find(':') > 0:
-            return image.split(':')
+        tagloc = image.find(':', image.find('/'))
+        if tagloc > 0:
+            return image[:tagloc], image[tagloc+1:]
         else:
-            return image, tag 
+            return image, None
     
     def get_summary_counters_msg(self):
         msg = ""
