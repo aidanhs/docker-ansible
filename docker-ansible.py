@@ -310,6 +310,8 @@ class DockerManager:
         # docker will give us back the full image name including a tag in the container list if one exists.
         image, tag = self.get_split_image_tag(image)
         
+        # The docker-py response does not include quotes we may have passed to it
+        command = command.replace('"','').replace("'",'').strip()
         for i in containers:
             running_image, running_tag = self.get_split_image_tag(i['Image'])
             running_command = i['Command'].strip()
